@@ -13,13 +13,12 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockListener;
 
-public class BLBlockListener extends BlockListener
+public class BLPlayerListener extends BlockListener
 {
     public static BlackLung plugin;
     int time;
-    
     Random r = new Random();
-    public BLBlockListener(BlackLung instance)
+    public BLPlayerListener(BlackLung instance)
     {
         plugin = instance;
     }

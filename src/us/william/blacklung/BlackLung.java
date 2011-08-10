@@ -8,12 +8,12 @@ import org.bukkit.util.config.Configuration;
 
 public class BlackLung extends JavaPlugin
 {
-	private final BLBlockListener BlockListener = new BLBlockListener(this);
+	private final BLPlayerListener BlockListener = new BLPlayerListener(this);
 	public Configuration config;
 	protected static int COAL_DAMAGE = 1; //Damage Player Will Receive when mining COAL!
-	protected static int RANDOM_BOOM = 1; //higher the # Less the chance of BOOM!
+	protected static int RANDOM_BOOM = 4; //higher the # Less the chance of BOOM!
 	protected static int FIRE_TICKER = 200; //Seconds Player Will Burn
-	protected static int BOOM_RADIUS = 2; //Radius Of BOOM!
+	protected static int BOOM_RADIUS = 8; //Radius Of BOOM!
 	protected static String DAMAGE_MESSAGE = "*cough*";//Message They Will Receive!	 
 	public static Logger log;
 
