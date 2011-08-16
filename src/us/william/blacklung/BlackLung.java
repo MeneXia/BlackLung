@@ -1,3 +1,8 @@
+//This work is licensed under the Creative Commons Attribution-NoDerivs 3.0 United States License. 
+//To view a copy of this license, visit http://creativecommons.org/licenses/by-nd/3.0/us/ 
+//or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+// WANNA USE MY CODE???? GIVE ME CREDIT!
 package us.william.blacklung;
 
 import java.util.logging.Logger;
@@ -8,12 +13,11 @@ import org.bukkit.util.config.Configuration;
 
 public class BlackLung extends JavaPlugin
 {
-	private final BLPlayerListener BlockListener = new BLPlayerListener(this);
+	private final BLBlockListener BlockListener = new BLBlockListener(this);
 	public Configuration config;
-	protected static int COAL_DAMAGE = 1; //Damage Player Will Receive when mining COAL!
-	protected static int RANDOM_BOOM = 4; //higher the # Less the chance of BOOM!
+	protected static int COAL_DAMAGE = 1; //Damage Player Will Receive when mining COAL!!
 	protected static int FIRE_TICKER = 200; //Seconds Player Will Burn
-	protected static int BOOM_RADIUS = 8; //Radius Of BOOM!
+	protected static int BOOM_RADIUS = 2; //Radius Of BOOM!
 	protected static String DAMAGE_MESSAGE = "*cough*";//Message They Will Receive!	 
 	public static Logger log;
 
@@ -32,13 +36,11 @@ public class BlackLung extends JavaPlugin
 	}
 	public void loadConfig(){
 		Configuration config = getConfiguration();
-		config.load();//This will load the config file, and if it doesn't exist, create a new one without any hassle
-		//Now, to load the default values (and set the new values if they've been changed)
+		config.load();
 		COAL_DAMAGE = config.getInt("BlackLung.Coal-Damage", COAL_DAMAGE); 
 		FIRE_TICKER = config.getInt("BlackLung.Fire-Ticker", FIRE_TICKER); 
-		RANDOM_BOOM = config.getInt("BlackLung.Random-Boom", RANDOM_BOOM);
 		BOOM_RADIUS = config.getInt("BlackLung.Boom-Radius", BOOM_RADIUS);
 		DAMAGE_MESSAGE = config.getString("BlackLung.Damage-Message", DAMAGE_MESSAGE);
-		config.save(); //save the new configuration file
+		config.save(); 
 	}
 }

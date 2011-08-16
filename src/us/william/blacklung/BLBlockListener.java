@@ -1,3 +1,8 @@
+//This work is licensed under the Creative Commons Attribution-NoDerivs 3.0 United States License. 
+//To view a copy of this license, visit http://creativecommons.org/licenses/by-nd/3.0/us/ 
+//or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+// WANNA USE MY CODE???? GIVE ME CREDIT!
 package us.william.blacklung;
 
 import java.util.Random;
@@ -13,21 +18,15 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockListener;
 
-public class BLPlayerListener extends BlockListener
-{
+public class BLBlockListener extends BlockListener{
     public static BlackLung plugin;
-    int time;
-    Random r = new Random();
-    public BLPlayerListener(BlackLung instance)
-    {
+    public BLBlockListener(BlackLung instance){
         plugin = instance;
     }
     public void onBlockBreak(BlockBreakEvent event){
         if (event.getBlock().getType() == (Material.COAL_ORE)) {
-            if(true)
-            {
-            time = r.nextInt(BlackLung.RANDOM_BOOM);
-            }
+            Random r = new Random();
+            if (r.nextInt(150)==1){
                 Player p = event.getPlayer();
                 World w = p.getWorld();
                 Block b = event.getBlock();
@@ -35,6 +34,7 @@ public class BLPlayerListener extends BlockListener
                 p.setFireTicks(BlackLung.FIRE_TICKER);
             }
         }
+    }
     public void onBlockDamage(BlockDamageEvent event){
         Player player = event.getPlayer();
         if (((player.getItemInHand().getType() == Material.DIAMOND_PICKAXE) || (event.getPlayer().getItemInHand().getType() != Material.GOLD_PICKAXE) || (event.getPlayer().getItemInHand().getType() != Material.IRON_PICKAXE) || (event.getPlayer().getItemInHand().getType() != Material.STONE_PICKAXE) || (event.getPlayer().getItemInHand().getType() != Material.WOOD_PICKAXE)) &&
