@@ -2,7 +2,7 @@
 //To view a copy of this license, visit http://creativecommons.org/licenses/by-nd/3.0/us/ 
 //or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
 
-// WANNA USE MY CODE???? GIVE ME CREDIT!
+// Credit to ChernobylStalker for code on his project "BlackLung."
 package fork.menexia.dynamine;
 
 import java.util.Random;
@@ -10,7 +10,6 @@ import java.util.Random;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -18,27 +17,33 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockListener;
 
-public class DMBlockListener extends BlockListener{
+public class DMBlockListener extends BlockListener {
     public static DynaMine plugin;
-    public DMBlockListener(DynaMine instance){
+    private static Random r = new Random();
+    public DMBlockListener(DynaMine instance) {
         plugin = instance;
     }
-    public void onBlockBreak(BlockBreakEvent event){
-        if (event.getBlock().getType() == (Material.COAL_ORE)) {
-            Random r = new Random();
-            if (r.nextInt(150)==1){
+    
+    public void onBlockBreak(BlockBreakEvent event) {
+    	if (DynaMine.EXPLOSION_ODDS > 0) {
+    		if (event.getBlock().getTypeId() == 16) {
+    			final int ch = r.nextInt(DynaMine.EXPLOSION_ODDS) + 1;
+    			if (ch == 1) {
                 Player p = event.getPlayer();
                 World w = p.getWorld();
                 Block b = event.getBlock();
                 w.createExplosion(b.getLocation(), DynaMine.BOOM_RADIUS);
                 p.setFireTicks(DynaMine.FIRE_TICKER);
+            	}
             }
         }
     }
+    
     public void onBlockDamage(BlockDamageEvent event){
         Player player = event.getPlayer();
-        if (((player.getItemInHand().getType() == Material.DIAMOND_PICKAXE) || (event.getPlayer().getItemInHand().getType() != Material.GOLD_PICKAXE) || (event.getPlayer().getItemInHand().getType() != Material.IRON_PICKAXE) || (event.getPlayer().getItemInHand().getType() != Material.STONE_PICKAXE) || (event.getPlayer().getItemInHand().getType() != Material.WOOD_PICKAXE)) &&
-                (event.getBlock().getType() == Material.COAL_ORE)) {
+        int idp = player.getItemInHand().getTypeId();
+        if (((idp == 278) || (idp == 285) || (idp == 257) || (idp == 274) || (idp == 270)) &&
+                (event.getBlock().getTypeId() == 16)) {
             Location loc = player.getLocation();
             World w = loc.getWorld();
             int repeat = 0;
@@ -52,21 +57,12 @@ public class DMBlockListener extends BlockListener{
                 }
                 repeat++;
             }
-            if (player.getInventory().getHelmet().getTypeId() != 298)
-                if (player.getInventory().getHelmet().getTypeId() != 302)
-                    if (player.getInventory().getHelmet().getTypeId() != 306)
-                        if (player.getInventory().getHelmet().getTypeId() != 314)
-                            if (player.getInventory().getHelmet().getTypeId() != 310)
-                                player.sendMessage(ChatColor.GRAY + DynaMine.DAMAGE_MESSAGE);
-            if (player.getInventory().getHelmet().getTypeId() != 298)
-                if (player.getInventory().getHelmet().getTypeId() != 302)
-                    if (player.getInventory().getHelmet().getTypeId() != 306)
-                        if (player.getInventory().getHelmet().getTypeId() != 314)
-                            if (player.getInventory().getHelmet().getTypeId() != 310)
-                                player.damage(DynaMine.COAL_DAMAGE);
-        }
-        if (player.getItemInHand().getType() == Material.AIR){
-            event.isCancelled();
+            int helm = player.getInventory().getHelmet().getTypeId();
+            if ((helm != 298) || (helm != 302) || (helm != 306)
+            		|| (helm != 314) || (helm != 310)) {
+            	player.sendMessage(ChatColor.GRAY + DynaMine.DAMAGE_MESSAGE);
+                player.damage(DynaMine.COAL_DAMAGE);
+            }
         }
     }
 }
