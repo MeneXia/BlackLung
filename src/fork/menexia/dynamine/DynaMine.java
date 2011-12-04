@@ -17,13 +17,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class DynaMine extends JavaPlugin {
 	public static DynaMine plugin;
 	private final DMBlockListener BlockListener = new DMBlockListener(this);
-	protected FileConfiguration config;
-// WILL DELETE	protected static int COAL_DAMAGE = 1; //Damage Player Will Receive when mining COAL!!
-// WILL DELETE	protected static int FIRE_TICKER = 200; //Seconds Player Will Burn
-// WILL DELETE	protected static int BOOM_RADIUS = 2; //Radius Of BOOM!
-// WILL DELETE	protected static String DAMAGE_MESSAGE = "*cough*";//Message They Will Receive!	 
+	protected FileConfiguration config; 
 	public final Logger logger = Logger.getLogger("Minecraft");
-
+	
+	static int COAL_DAMAGE = 0;
+	static int FIRE_TICKER = 0;
+	static int BOOM_RADIUS = 0;
+	static int EXPLOSION_ODDS = 0;
+	static String DAMAGE_MESSAGE = "";
+	
 	public void onEnable() {
 		try {
 			File fileconfig = new File(getDataFolder(), "config.yml");
@@ -31,11 +33,12 @@ public class DynaMine extends JavaPlugin {
 				config = getConfig();
 				getDataFolder().mkdir();
 				new File(getDataFolder(), "config.yml");
-				loadConfiguration();
-			} saveConfig();
+				config.options().copyDefaults(true);
+			}
 		} catch (Exception e1){
 			e1.printStackTrace();
 		}
+		getVariables();
 		PluginDescriptionFile pdf = this.getDescription();
 		this.logger.info( pdf.getName() + " version " + pdf.getVersion() + " by MeneXia is enabled!" );
 		PluginManager pm = getServer().getPluginManager();
@@ -44,17 +47,16 @@ public class DynaMine extends JavaPlugin {
 	}
 	
 	public void onDisable() {
+		saveConfig();
 		this.logger.info("DynaMine disabled!");
 	}
 	
-	public void loadConfiguration() {
-		config.addDefault("COAL_DAMAGE", 1);
-		config.addDefault("FIRE_TICKER", 200);
-		config.addDefault("BOOM_RADIUS", 2);
-		config.addDefault("DAMAGE_MESSAGE", "*cough*");
-		config.options().copyDefaults(true);
-		this.saveConfig();
+	public void getVariables() {
+		EXPLOSION_ODDS = config.getInt("EXPLOSION_ODDS");
+		COAL_DAMAGE = config.getInt("COAL_DAMAGE");
+		FIRE_TICKER = config.getInt("FIRE_TICKER");
+		BOOM_RADIUS = config.getInt("BOOM_RADIUS");
+		DAMAGE_MESSAGE = config.getString("DAMGE_MESSAGE");
 	}
-	
 	
 }
