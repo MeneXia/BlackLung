@@ -25,6 +25,7 @@ public class DynaMine extends JavaPlugin {
 	static int BOOM_RADIUS = 0;
 	static int EXPLOSION_ODDS = 0;
 	static String DAMAGE_MESSAGE = "";
+	// variables are mentioned for reference
 	
 	public void onEnable() {
 		try {
@@ -40,7 +41,7 @@ public class DynaMine extends JavaPlugin {
 		}
 		getVariables();
 		PluginDescriptionFile pdf = this.getDescription();
-		this.logger.info( pdf.getName() + " version " + pdf.getVersion() + " by MeneXia is enabled!" );
+		this.logger.info( "[" + pdf.getName() + "]" + " version " + pdf.getVersion() + " by MeneXia is enabled!" );
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvent(Event.Type.BLOCK_DAMAGE, this.BlockListener, Event.Priority.Normal, this);
 		pm.registerEvent(Event.Type.BLOCK_BREAK, this.BlockListener, Event.Priority.Normal, this);
