@@ -41,9 +41,12 @@ public class DMBlockListener extends BlockListener {
     
     public void onBlockDamage(BlockDamageEvent event){
         Player player = event.getPlayer();
-        int idp = player.getItemInHand().getTypeId();
-        if (((idp == 278) || (idp == 285) || (idp == 257) || (idp == 274) || (idp == 270)) &&
-                (event.getBlock().getTypeId() == 16)) {
+        if (((player.getItemInHand().getTypeId() == 278)
+        		|| (player.getItemInHand().getTypeId() == 285)
+        		|| (player.getItemInHand().getTypeId() == 257) 
+        		|| (player.getItemInHand().getTypeId() == 274) 
+        		|| (player.getItemInHand().getTypeId() == 270)) 
+        		&& (event.getBlock().getTypeId() == 16)) {
             Location loc = player.getLocation();
             World w = loc.getWorld();
             int repeat = 0;
@@ -57,9 +60,11 @@ public class DMBlockListener extends BlockListener {
                 }
                 repeat++;
             }
-            int helm = player.getInventory().getHelmet().getTypeId();
-            if ((helm != 298) || (helm != 302) || (helm != 306)
-            		|| (helm != 314) || (helm != 310)) {
+            if ((player.getInventory().getHelmet().getTypeId() != 298) 
+            		&& (player.getInventory().getHelmet().getTypeId() != 302) 
+            		&& (player.getInventory().getHelmet().getTypeId() != 306)
+            		&& (player.getInventory().getHelmet().getTypeId() != 314) 
+            		&& (player.getInventory().getHelmet().getTypeId() != 310)) {
             	player.sendMessage(ChatColor.GRAY + DynaMine.DAMAGE_MESSAGE);
                 player.damage(DynaMine.COAL_DAMAGE);
             }

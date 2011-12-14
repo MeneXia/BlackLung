@@ -1,3 +1,4 @@
+# DynaMine config file v0.2
 # if EXPLOSION_ODDS is 200, mining a coal ore has a 1/200 chance of exploding
 # COAL_DAMAGE = how many half hearts of damage
 # FIRE_TICKER = how many ticks player will burn for. 200 = 2 seconds
