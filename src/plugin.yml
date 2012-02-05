@@ -1,0 +1,9 @@
+name: DynaMine
+main: fork.menexia.dynamine.DynaMine
+version: 0.31
+fork of: chernobyl360's BlackLung
+description: Coal Mining is Dangerous!
+permissions:
+    DynaMine.exempt:
+        description: Makes player not affected by coal explosion and coal damage. They still get the particle effects though.
+        default: op
