@@ -13,18 +13,20 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
-import org.bukkit.event.block.BlockListener;
 
-public class DMBlockListener extends BlockListener {
+public class DMBlockListener implements Listener {
     public static DynaMine plugin;
     private static Random r = new Random();
     public DMBlockListener(DynaMine instance) {
         plugin = instance;
     }
     
-    public void onBlockBreak(BlockBreakEvent event) {
+    @EventHandler(ignoreCancelled = true)
+    public void onBlockBreak(final BlockBreakEvent event) {
     	if (DynaMine.EXPLOSION_ODDS > 0) {
     		if (event.getBlock().getTypeId() == 16) {
     			final int ch = r.nextInt(DynaMine.EXPLOSION_ODDS) + 1;
@@ -39,7 +41,8 @@ public class DMBlockListener extends BlockListener {
         }
     }
     
-    public void onBlockDamage(BlockDamageEvent event){
+    @EventHandler(ignoreCancelled = true)
+    public void onBlockDamage(final BlockDamageEvent event){
         Player player = event.getPlayer();
         if (((player.getItemInHand().getTypeId() == 278)
         		|| (player.getItemInHand().getTypeId() == 285)
@@ -60,7 +63,8 @@ public class DMBlockListener extends BlockListener {
                 }
                 repeat++;
             }
-            if ((player.getInventory().getHelmet().getTypeId() != 298) 
+            if ((!player.hasPermission("DynaMine.exempt")) &&
+            		(player.getInventory().getHelmet().getTypeId() != 298) 
             		&& (player.getInventory().getHelmet().getTypeId() != 302) 
             		&& (player.getInventory().getHelmet().getTypeId() != 306)
             		&& (player.getInventory().getHelmet().getTypeId() != 314) 
